@@ -8,28 +8,21 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 
 @Entity
-@Table(name = "users")
-public class User {
-    @Id
+@Table(name = "admins")
+public class Admin {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
     long id;
 
-    @Size(min = 4, max = 30)
-    @NotBlank
-    String name;
-
-    @Size(min = 4, max = 30)
-    @NotBlank
-    String surname;
+    String username;
 
     @Email
     @NotBlank
     String email;
-
-    @Size(min = 4, max = 255)
+    
+    @NotBlank
     String password;
 
     @ManyToOne
@@ -51,20 +44,12 @@ public class User {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getEmail() {

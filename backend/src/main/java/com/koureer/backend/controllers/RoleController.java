@@ -6,19 +6,20 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.koureer.backend.entities.Company;
-import com.koureer.backend.services.CompanyService;
+import com.koureer.backend.entities.Role;
+import com.koureer.backend.services.RoleService;
 import com.koureer.backend.shared.GenericMessage;
 
 @RestController
-@RequestMapping("/api/companies")
-public class CompanyController {
+@RequestMapping("/api/roles")
+public class RoleController {
+
     @Autowired
-    CompanyService companyService;
+    RoleService roleService;
 
     @PostMapping("/create")
-    GenericMessage createCompany(@RequestBody Company company) {
-        companyService.save(company);
-        return new GenericMessage("Company is created.");
+    GenericMessage createRole(@RequestBody Role role) {
+        roleService.save(role);
+        return new GenericMessage("Role is created.");
     }
 }

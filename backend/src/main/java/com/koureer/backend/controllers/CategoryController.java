@@ -6,19 +6,19 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.koureer.backend.entities.Company;
-import com.koureer.backend.services.CompanyService;
+import com.koureer.backend.entities.Category;
+import com.koureer.backend.services.CategoryService;
 import com.koureer.backend.shared.GenericMessage;
 
 @RestController
-@RequestMapping("/api/companies")
-public class CompanyController {
+@RequestMapping("/api/categories")
+public class CategoryController {
     @Autowired
-    CompanyService companyService;
+    CategoryService categoryService;
 
     @PostMapping("/create")
-    GenericMessage createCompany(@RequestBody Company company) {
-        companyService.save(company);
-        return new GenericMessage("Company is created.");
+    GenericMessage createCategory(@RequestBody Category category) {
+        categoryService.save(category);
+        return new GenericMessage("Category is created.");
     }
 }
