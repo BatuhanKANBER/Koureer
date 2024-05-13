@@ -1,6 +1,7 @@
 package com.koureer.backend.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +16,11 @@ import com.koureer.backend.shared.GenericMessage;
 public class CompanyController {
     @Autowired
     CompanyService companyService;
+
+    @GetMapping("/home")
+    GenericMessage userHome() {
+        return new GenericMessage("Company home.");
+    }
 
     @PostMapping("/create")
     GenericMessage createCompany(@RequestBody Company company) {

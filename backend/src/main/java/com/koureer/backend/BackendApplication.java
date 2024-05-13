@@ -3,17 +3,14 @@ package com.koureer.backend;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.koureer.backend.entities.Admin;
-import com.koureer.backend.entities.Role;
-import com.koureer.backend.repositories.AdminRepository;
-import com.koureer.backend.repositories.RoleRepository;
+import com.koureer.backend.entities.User;
+import com.koureer.backend.repositories.UserRepository;
 
-@SpringBootApplication(exclude = SecurityAutoConfiguration.class)
+@SpringBootApplication
 public class BackendApplication {
 
 	public static void main(String[] args) {
@@ -22,28 +19,32 @@ public class BackendApplication {
 	}
 
 	@Bean
-	CommandLineRunner roles(RoleRepository roleRepository, AdminRepository adminRepository) {
+	CommandLineRunner createUser(UserRepository userRepository) {
 		return (args) -> {
-			var roleInDB = roleRepository.count();
 			PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-			if (roleInDB != 0) {
-				return;
-			}
-			Role role1 = new Role();
-			role1.setName("admin");
-			roleRepository.save(role1);
-			Role role2 = new Role();
-			role2.setName("company");
-			roleRepository.save(role2);
-			Role role3 = new Role();
-			role3.setName("user");
-			roleRepository.save(role3);
-			Admin admin = new Admin();
-			admin.setRole(role1);
-			admin.setUsername("Admin");
+			User normalUser = new User();
+			normalUser.setName("Batuhan");
+			normalUser.setSurname("KANBER");
+			normalUser.setEmail("batuhan@gmail.com");
+			normalUser.setPassword(passwordEncoder.encode("1234"));
+			normalUser.setRole("USER");
+			userRepository.save(normalUser);
+
+			User admin = new User();
+			admin.setName("Batuhan");
+			admin.setSurname("KANBER");
 			admin.setEmail("admin@gmail.com");
-			admin.setPassword(passwordEncoder.encode("Admin123"));
-			adminRepository.save(admin);
+			admin.setPassword(passwordEncoder.encode("1234"));
+			admin.setRole("ADMIN");
+			userRepository.save(admin);
+
+			User company = new User();
+			company.setName("Batuhan");
+			company.setSurname("KANBER");
+			company.setEmail("company@gmail.com");
+			company.setPassword(passwordEncoder.encode("1234"));
+			company.setRole("COMPANY");
+			userRepository.save(company);
 		};
 	}
 
