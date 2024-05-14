@@ -28,6 +28,9 @@ public class SecurityConfiguration {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(
                         (registry) -> {
+                            // registry.requestMatchers(
+                            //         AntPathRequestMatcher.antMatcher(HttpMethod.GET, "/api/users/home"))
+                            //         .authenticated();
                             registry.requestMatchers("/api/categories/**").hasRole("ADMIN");
                             registry.requestMatchers("/api/users/**").hasAnyRole("USER", "ADMIN");
                             registry.requestMatchers("/api/companies/**").hasAnyRole("COMPANY", "ADMIN");
