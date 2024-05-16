@@ -1,14 +1,47 @@
 import { useNavigation } from "@react-navigation/native";
 import { Button, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { signin } from "./api";
+import { useState } from "react";
+import { saveApiResponseToAsyncStorage } from "../../state/storage";
+import { useStoredData } from "../../hooks/getStorageData";
 export function Login() {
     const navigation = useNavigation()
+    const [email, setEmail] = useState()
+    const [password, setPassword] = useState()
+    // const data = useStoredData('user_details')
+    // console.log(typeof (data), data)
+
+    const onPress = async (event) => {
+        event.preventDefault();
+        try {
+            const response = await signin({
+                email,
+                password
+            })
+            saveApiResponseToAsyncStorage(response.data)
+            console.log(response.data.role)
+            if (response.data.role === 'ADMIN') {
+                navigation.navigate("AdminHome")
+            }
+            if (response.data.role === 'USER') {
+                navigation.navigate("UserHome")
+            }
+            if (response.data.role === 'COMPANY') {
+                navigation.navigate("CompanyHome")
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     return (
         <>
             <View style={styles.container}>
-                <TextInput style={styles.input} placeholder="Email" />
-                <TextInput style={styles.input} secureTextEntry placeholder="Parola" />
+                <TextInput value={email} onChangeText={setEmail} style={styles.input} placeholder="Email" />
+                <TextInput value={password} onChangeText={setPassword} style={styles.input} secureTextEntry placeholder="Parola" />
                 <View style={buttonFlex.container}>
                     <Button
+                        onPress={onPress}
                         title="Giriş Yap"
                         color="#841584"
                     />

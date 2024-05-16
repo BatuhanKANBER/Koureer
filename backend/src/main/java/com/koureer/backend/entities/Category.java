@@ -5,10 +5,11 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.Size;
 
 @Entity
-@Table(name = "categories")
+@Table(name = "categories", uniqueConstraints = @UniqueConstraint(columnNames = { "name" }))
 public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id

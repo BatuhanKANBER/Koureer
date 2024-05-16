@@ -1,11 +1,20 @@
-import { Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
+import NavigationBar from "../Shared/NavBar";
 
 export function OurApplications() {
     return (
-        <View>
+        <View style={styles.container}>
             <Text>
                 İlanlarımız
             </Text>
+            <NavigationBar />
         </View>
     )
 }
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        alignItems: "center",
+        justifyContent: "center"
+    }
+})

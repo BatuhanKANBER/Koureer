@@ -5,30 +5,21 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+import jakarta.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "users")
+@Table(name = "users", uniqueConstraints = @UniqueConstraint(columnNames = { "email" }))
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
 
-    @Size(min = 4, max = 30)
-    @NotBlank
     String name;
 
-    @Size(min = 4, max = 30)
-    @NotBlank
     String surname;
 
-    @Email
-    @NotBlank
     String email;
 
-    @Size(min = 4, max = 255)
     String password;
 
     String role;

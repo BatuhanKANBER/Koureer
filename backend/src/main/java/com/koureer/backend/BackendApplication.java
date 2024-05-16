@@ -3,6 +3,7 @@ package com.koureer.backend;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -10,7 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import com.koureer.backend.entities.User;
 import com.koureer.backend.repositories.UserRepository;
 
-@SpringBootApplication
+@SpringBootApplication(exclude = SecurityAutoConfiguration.class)
 public class BackendApplication {
 
 	public static void main(String[] args) {
