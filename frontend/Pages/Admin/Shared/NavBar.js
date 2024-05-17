@@ -37,12 +37,12 @@ const styles = StyleSheet.create({
         left: 0,
         right: 0,
         height: 50,
-        backgroundColor: '#eee',
+        backgroundColor: '#2e8b57',
     },
     link: {
         fontSize: 16,
         fontWeight: 'bold',
-        color: 'blue',
+        color: 'white',
     },
 });
 

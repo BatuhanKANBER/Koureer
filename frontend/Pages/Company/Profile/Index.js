@@ -1,23 +1,13 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import clearAllData from "../../../state/clearStorage";
+import { StyleSheet, View } from "react-native";
 import NavigationBar from "../Shared/NavBar";
-import { useNavigation } from "@react-navigation/native";
+import { StatusBar } from "../Shared/StatusBar";
 
 export function CompanyProfile() {
-    const navigation = useNavigation()
-    const handleLogout = () => {
-        clearAllData();
-        navigation.navigate('login')
-    };
+
 
     return (
         <View style={styles.container}>
-            <TouchableOpacity onPress={handleLogout}>
-                <Text>Logout</Text>
-            </TouchableOpacity>
-            <Text>
-                Şirket Profil Sayfası
-            </Text>
+            <StatusBar />
             <NavigationBar />
         </View>
     )
@@ -25,7 +15,6 @@ export function CompanyProfile() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: "center",
-        justifyContent: "center"
+        paddingTop: 40,
     }
 })

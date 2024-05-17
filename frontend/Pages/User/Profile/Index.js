@@ -2,6 +2,7 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import clearAllData from "../../../state/clearStorage";
 import { useNavigation } from "@react-navigation/native";
 import NavigationBar from "../Shared/NavBar";
+import { StatusBar } from "../Shared/StatusBar";
 
 export function UserProfile() {
     const navigation = useNavigation()
@@ -12,9 +13,7 @@ export function UserProfile() {
 
     return (
         <View style={styles.container}>
-            <TouchableOpacity onPress={handleLogout}>
-                <Text>Logout</Text>
-            </TouchableOpacity>
+            <StatusBar />
             <Text>
                 User Profil Sayfası
             </Text>
@@ -25,7 +24,6 @@ export function UserProfile() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: "center",
-        justifyContent: "center"
+        paddingTop: 40,
     }
 })

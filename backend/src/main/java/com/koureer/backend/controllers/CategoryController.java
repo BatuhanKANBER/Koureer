@@ -11,6 +11,8 @@ import com.koureer.backend.dto.CategoryCreate;
 import com.koureer.backend.services.CategoryService;
 import com.koureer.backend.shared.GenericMessage;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/api/categories")
 public class CategoryController {
@@ -18,7 +20,7 @@ public class CategoryController {
     private CategoryService categoryService;
 
     @PostMapping("/create")
-    ResponseEntity<?> createCategory(@RequestBody CategoryCreate categoryCreate) {
+    ResponseEntity<?> createCategory(@Valid @RequestBody CategoryCreate categoryCreate) {
         categoryService.save(categoryCreate.toCategory());
         return ResponseEntity.ok().body(new GenericMessage("Category is created."));
     }

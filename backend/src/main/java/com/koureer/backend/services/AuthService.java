@@ -21,7 +21,6 @@ public class AuthService {
     public void save(User user) {
         try {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
-            user.setRole("USER");
             userRepository.save(user);
         } catch (UniqueEmailException exception) {
             throw new UniqueEmailException();

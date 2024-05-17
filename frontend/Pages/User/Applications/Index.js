@@ -1,9 +1,11 @@
 import { StyleSheet, Text, View } from "react-native";
 import NavigationBar from "../Shared/NavBar";
+import { StatusBar } from "../Shared/StatusBar";
 
 export function JobApplications() {
     return (
         <View style={styles.container}>
+            <StatusBar />
             <Text>
                 İş Başvurularım
             </Text>
@@ -14,7 +16,6 @@ export function JobApplications() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: "center",
-        justifyContent: "center"
+        paddingTop: 40,
     }
 })

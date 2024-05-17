@@ -1,14 +1,26 @@
 import { useNavigation } from "@react-navigation/native";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { createUser } from "./api";
+import Checkbox from "expo-checkbox";
 
 export function Register() {
     const [name, setName] = useState()
     const [surname, setSurname] = useState()
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
+    const [isChecked, setIsChecked] = useState(false);
+    const [role, setRole] = useState('USER');
     const navigation = useNavigation()
+
+    const handleCheckBoxChange = (newValue) => {
+        setIsChecked(newValue);
+        if (newValue) {
+            setRole('COMPANY');
+        } else {
+            setRole('USER');
+        }
+    };
 
     const onPress = async (event) => {
         event.preventDefault();
@@ -18,11 +30,14 @@ export function Register() {
                 name,
                 surname,
                 email,
-                password
+                password,
+                role
             })
             console.log(response.data.message)
-        } catch(error) {
+            alert('Kullanıcı oluşturuldu.')
+        } catch (error) {
             console.log(error)
+            alert('Kullanıcı oluşturulurken bir hata meydana geldi.')
         }
     }
 
@@ -30,13 +45,21 @@ export function Register() {
         <>
             <View style={styles.container}>
                 <TextInput value={name} onChangeText={setName} style={styles.input} placeholder="Ad" />
-                <TextInput value={surname} onChangeText={setSurname}  style={styles.input} placeholder="Soyad" />
-                <TextInput value={email} onChangeText={setEmail}  style={styles.input} placeholder="Email" />
+                <TextInput value={surname} onChangeText={setSurname} style={styles.input} placeholder="Soyad" />
+                <TextInput value={email} onChangeText={setEmail} style={styles.input} placeholder="Email" />
                 <TextInput value={password} onChangeText={setPassword} style={styles.input} secureTextEntry placeholder="Parola" />
+                <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10 }}>
+                    <Checkbox
+                        color='#2e8b57'
+                        value={isChecked}
+                        onValueChange={handleCheckBoxChange}
+                    />
+                    <Text style={styles.label}> Şirket hesabı oluşturmak  için seçiniz.</Text>
+                </View>
                 <Button
                     onPress={onPress}
                     title="Kayıt Ol"
-                    color="#841584"
+                    color="#2e8b57"
                 />
                 <View style={{ height: 20 }} />
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>

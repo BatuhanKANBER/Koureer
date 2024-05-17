@@ -43,7 +43,7 @@ export function Login() {
                     <Button
                         onPress={onPress}
                         title="Giriş Yap"
-                        color="#841584"
+                        color="#2e8b57"
                     />
                     <View style={{ height: 20 }} />
                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
