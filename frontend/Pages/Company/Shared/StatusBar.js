@@ -22,9 +22,15 @@ export function StatusBar() {
         navigation.navigate('login')
     };
 
+    const handleProfileButton = () => {
+        navigation.navigate('CompanyProfile')
+    };
+
     return (
         <View style={styles.header}>
-            <Text style={styles.user}>{name} {surname}</Text>
+            <TouchableOpacity style={styles.profileButton} onPress={handleProfileButton}>
+                <Text style={styles.user}>{name} {surname}</Text>
+            </TouchableOpacity>
             <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
                 <Text style={styles.logoutText}>Logout</Text>
             </TouchableOpacity>
@@ -43,6 +49,9 @@ const styles = StyleSheet.create({
         borderBottomColor: '#ddd',
     },
     logoutButton: {
+        padding: 10,
+    },
+    profileButton: {
         padding: 10,
     },
     logoutText: {
