@@ -1,10 +1,12 @@
-import { StyleSheet, TouchableOpacity, View } from "react-native";
+import { Alert, StyleSheet, TouchableOpacity, View } from "react-native";
 import NavigationBar from "../Shared/NavBar";
 import { StatusBar } from "../Shared/StatusBar";
 import { useEffect, useState } from "react";
 import { useStoredData } from "../../../hooks/getStorageData";
 import { Image } from "react-native";
 import { Text } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import clearAllData from "../../../state/clearStorage";
 
 export function CompanyProfile() {
     const [name, setName] = useState()
@@ -12,6 +14,7 @@ export function CompanyProfile() {
     const [email, setEmail] = useState()
     const [image, setImage] = useState()
     const [isLoggedIn, setIsLoggedIn] = useState()
+    const navigation = useNavigation()
     let data = useStoredData("user_details")
 
     useEffect(() => {
@@ -22,6 +25,27 @@ export function CompanyProfile() {
             setIsLoggedIn(data.id)
         }
     }, [data])
+
+    const deleteUser = () => {
+        clearAllData()
+        navigation.navigate('login')
+    }
+
+    const handleDeleteButton = () => {
+        Alert.alert(
+            "Kullanıcı Silme",
+            "Kullanıcıyı silmek istediğinizden emin misiniz?",
+            [
+                {
+                    text: "İptal",
+                    style: "cancel"
+                },
+                { text: "Evet", onPress: deleteUser }
+            ],
+            { cancelable: false }
+        );
+    }
+
     const defaultImage = require('../../../assets/default-company.png');
 
     return (
@@ -39,7 +63,7 @@ export function CompanyProfile() {
                         <TouchableOpacity style={styles.editButton}>
                             <Text style={styles.editButtonText}>Düzenle</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.deleteButton}>
+                        <TouchableOpacity style={styles.deleteButton} onPress={handleDeleteButton}>
                             <Text style={styles.deleteButtonText}>Sil</Text>
                         </TouchableOpacity>
                     </View>

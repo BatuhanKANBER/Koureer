@@ -32,16 +32,16 @@ public class BackendApplication {
 			userRepository.save(normalUser);
 
 			User admin = new User();
-			admin.setName("Batuhan");
-			admin.setSurname("KANBER");
+			admin.setName("Admin");
+			admin.setSurname("ADMIN");
 			admin.setEmail("admin@gmail.com");
 			admin.setPassword(passwordEncoder.encode("1234"));
 			admin.setRole("ADMIN");
 			userRepository.save(admin);
 
 			User company = new User();
-			company.setName("Batuhan");
-			company.setSurname("KANBER");
+			company.setName("Şirket");
+			company.setSurname("ŞİRKET");
 			company.setEmail("company@gmail.com");
 			company.setPassword(passwordEncoder.encode("1234"));
 			company.setRole("COMPANY");

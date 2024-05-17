@@ -1,5 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Alert, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import clearAllData from "../../../state/clearStorage";
 import { useEffect, useState } from "react";
 import { useStoredData } from "../../../hooks/getStorageData";
@@ -17,10 +17,25 @@ export function StatusBar() {
         }
     }, [data])
 
-    const handleLogout = () => {
+    const logout = () => {
         clearAllData();
         navigation.navigate('login')
     };
+
+    const handleLogout = () => {
+        Alert.alert(
+            "Çıkış Yap",
+            "Çıkış yapmak istediğinizden emin misiniz?",
+            [
+                {
+                    text: "İptal",
+                    style: "cancel"
+                },
+                { text: "Evet", onPress: logout }
+            ],
+            { cancelable: false }
+        );
+    }
 
     const handleProfileButton = () => {
         navigation.navigate('AdminProfile')
