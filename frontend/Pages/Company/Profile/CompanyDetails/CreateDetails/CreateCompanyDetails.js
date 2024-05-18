@@ -2,21 +2,19 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import CountryPicker from 'react-native-country-picker-modal';
 import ReactNativePhoneInput from 'react-native-phone-input';
-import { createUserDetails } from './api';
 import { useNavigation } from '@react-navigation/native';
 import { useStoredData } from '../../../../../hooks/getStorageData';
-import { RadioButton } from 'react-native-paper';
-import { StatusBar } from '../../../Shared/StatusBar';
 import NavigationBar from '../../../Shared/NavBar';
+import { createCompanyDetails } from './api';
+import { StatusBar } from "../../../Shared/StatusBar"
 
-
-export function CreateUserDetails() {
+export function CreateCompanyDetails() {
+    const [name, setName] = useState()
     const [countryName, setCountryName] = useState()
     const [country, setCountry] = useState()
     const [phoneNumber, setPhoneNumber] = useState()
     const [description, setDescription] = useState()
     const [id, setId] = useState()
-    const [gender, setGender] = useState(true)
     const navigation = useNavigation()
 
     let data = useStoredData("user_details")
@@ -34,68 +32,56 @@ export function CreateUserDetails() {
         }
     }, [countryName])
 
-    const navigateToUserProfile = () => {
+    const navigateToCompanyProfile = () => {
         navigation.navigate("login")
     }
 
     const onPress = async (event) => {
         event.preventDefault();
         try {
-            const response = await createUserDetails(id, {
-                gender,
-                phoneNumber,
+            const response = await createCompanyDetails(id, {
+                name,
                 country,
+                phoneNumber,
                 description
             })
             console.log(response.data)
             Alert.alert(
                 "Bilgi",
-                "Kullanıcı detayları başarıyla oluşturuldu.",
+                "Şirket detayları başarıyla oluşturuldu.",
                 [
-                    { text: "Ok", onPress: navigateToUserProfile }
+                    { text: "Ok", onPress: navigateToCompanyProfile }
                 ],
                 { cancelable: false }
             );
         } catch (error) {
             console.log(error)
-            alert('Kullanıcı detayları oluşturulurken bir hata meydana geldi.')
+            alert('Şirket detayları oluşturulurken bir hata meydana geldi.')
         }
     }
     return (
         <View style={styles.container}>
             <StatusBar />
             <View style={styles.elementsContainer}>
+                <TextInput
+                    onChangeText={setName}
+                    value={name}
+                    placeholder="Şirket Adı"
+                    style={styles.input}
+                />
+                <ReactNativePhoneInput style={styles.input} value={phoneNumber} onChangePhoneNumber={setPhoneNumber} />
                 <View style={{ flexDirection: "row", alignItems: "center", width: '80%', marginBottom: 10 }}>
                     <Text style={{ fontSize: 16, fontWeight: "bold" }}>Uyruk: {country} </Text><CountryPicker onSelect={setCountryName} withFlag
                         withFilter withAlphaFilter withCountryNameButton />
                 </View>
-                <ReactNativePhoneInput style={styles.input} value={phoneNumber} onChangePhoneNumber={setPhoneNumber} />
                 <TextInput
                     multiline={true}
                     numberOfLines={4}
                     onChangeText={setDescription}
                     value={description}
-                    placeholder="Kendinden bahset..."
+                    placeholder="Şirketinden bahset..."
                     style={styles.textArea}
                 />
-                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                    <RadioButton
-                        color='#2e8b57'
-                        value="male"
-                        status={gender === true ? 'checked' : 'unchecked'}
-                        onPress={() => setGender(true)
-                        }
-                    />
-                    <Text style={{ marginRight: 20 }}>Erkek</Text>
-
-                    <RadioButton
-                        color='#2e8b57'
-                        value="female"
-                        status={gender === false ? 'checked' : 'unchecked'}
-                        onPress={() => setGender(false)}
-                    />
-                    <Text>Kadın</Text>
-                </View>
                 <TouchableOpacity style={styles.createButton} onPress={onPress}>
                     <Text style={styles.createButtonText}>
                         Kaydet

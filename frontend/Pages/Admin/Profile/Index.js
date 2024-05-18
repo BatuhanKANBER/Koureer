@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'space-between',
-        paddingTop: StatusBar.currentHeight || 40,
+        paddingTop: StatusBar.currentHeight || 10,
         paddingBottom: 20,
     },
     profileContainer: {

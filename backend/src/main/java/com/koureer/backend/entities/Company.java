@@ -16,7 +16,6 @@ public class Company {
     long id;
     String name;
     String phoneNumber;
-    int numberOfEmployees;
-    int createdYear;
+    String country;
     String description;
 }
