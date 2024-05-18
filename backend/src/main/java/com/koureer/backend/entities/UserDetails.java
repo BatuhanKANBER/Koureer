@@ -7,16 +7,15 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
 
-@Entity
 @Data
-@Table(name = "companies")
-public class Company {
+@Entity
+@Table(name = "user_details")
+public class UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
-    String name;
+    boolean gender;
     String phoneNumber;
-    int numberOfEmployees;
-    int createdYear;
+    String country;
     String description;
 }

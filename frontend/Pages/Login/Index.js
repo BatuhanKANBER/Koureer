@@ -3,7 +3,6 @@ import { Button, StyleSheet, Text, TextInput, TouchableOpacity, View } from "rea
 import { signin } from "./api";
 import { useState } from "react";
 import { saveApiResponseToAsyncStorage } from "../../state/storage";
-import { useStoredData } from "../../hooks/getStorageData";
 export function Login() {
     const navigation = useNavigation()
     const [email, setEmail] = useState()
@@ -19,7 +18,7 @@ export function Login() {
                 password
             })
             saveApiResponseToAsyncStorage(response.data)
-            console.log(response.data.role)
+            console.log(response.data)
             if (response.data.role === 'ADMIN') {
                 navigation.navigate("AdminHome")
             }

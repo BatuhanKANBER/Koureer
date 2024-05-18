@@ -12,6 +12,7 @@ import { AdminHome } from './Pages/Admin/Index';
 import { AdminProfile } from './Pages/Admin/Profile/Index';
 import { Users } from './Pages/Admin/Users/Index';
 import { Companies } from './Pages/Admin/Companies/Index';
+import { CreateUserDetails } from './Pages/User/Profile/UserDetails/CreateDetails/CreateUserDetails';
 
 export default function App() {
   const Stack = createNativeStackNavigator()
@@ -24,6 +25,7 @@ export default function App() {
         <Stack.Screen name="UserHome" component={UserHome} />
         <Stack.Screen name="JobApplications" component={JobApplications} />
         <Stack.Screen name="UserProfile" component={UserProfile} />
+        <Stack.Screen name="CreateUserDetails" component={CreateUserDetails} />
         <Stack.Screen name="CompanyHome" component={CompanyHome} />
         <Stack.Screen name="OurApplications" component={OurApplications} />
         <Stack.Screen name="CompanyProfile" component={CompanyProfile} />
@@ -33,7 +35,6 @@ export default function App() {
         <Stack.Screen name='Companies' component={Companies} />
       </Stack.Navigator>
     </NavigationContainer>
-
   );
 }
 

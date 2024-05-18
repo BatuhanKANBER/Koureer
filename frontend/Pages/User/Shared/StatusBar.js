@@ -8,6 +8,7 @@ export function StatusBar() {
     const navigation = useNavigation()
     const [name, setName] = useState()
     const [surname, setSurname] = useState()
+    const [phoneNumber, setPhoneNumber] = useState()
     let data = useStoredData("user_details")
 
     useEffect(() => {

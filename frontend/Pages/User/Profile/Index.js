@@ -12,22 +12,29 @@ export function UserProfile() {
     const [surname, setSurname] = useState()
     const [email, setEmail] = useState()
     const [image, setImage] = useState()
+    const [userDetails, setUserDetails] = useState()
     const [isLoggedIn, setIsLoggedIn] = useState()
     let data = useStoredData("user_details")
     const navigation = useNavigation()
 
     useEffect(() => {
-        if (data && data.name && data.surname && data.id) {
+        if (data && data.id) {
             setName(data.name)
             setSurname(data.surname)
             setEmail(data.email)
             setIsLoggedIn(data.id)
+            setUserDetails(data.userDetails)
         }
     }, [data])
 
     const deleteUser = () => {
         clearAllData()
         navigation.navigate('login')
+    }
+
+    const deleteUserDetails = () => {
+        setUserDetails(null)
+        navigation.navigate('UserProfile')
     }
 
     const handleDeleteButton = () => {
@@ -45,6 +52,25 @@ export function UserProfile() {
         );
     }
 
+    const handleUserDetailsDeleteButton = () => {
+        Alert.alert(
+            "Kullanıcı Detayları Silme",
+            "Kullanıcının detaylarını silmek istediğinizden emin misiniz?",
+            [
+                {
+                    text: "İptal",
+                    style: "cancel"
+                },
+                { text: "Evet", onPress: deleteUserDetails }
+            ],
+            { cancelable: false }
+        );
+    }
+
+    const handleUserDetailsCreateButton = () => {
+        navigation.navigate("CreateUserDetails")
+    }
+
     const defaultImage = require('../../../assets/default-user.jpg');
 
     return (
@@ -60,12 +86,65 @@ export function UserProfile() {
                 {isLoggedIn > 0 &&
                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                         <TouchableOpacity style={styles.editButton}>
-                            <Text style={styles.editButtonText}>Düzenle</Text>
+                            <Text style={styles.editButtonText}>Güncelle</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.deleteButton} onPress={handleDeleteButton}>
                             <Text style={styles.deleteButtonText}>Sil</Text>
                         </TouchableOpacity>
                     </View>
+                }
+                {
+                    userDetails &&
+                    <View style={{ flexDirection: 'column', alignItems: 'left' }}>
+                        <Text style={{
+                            fontSize: 16,
+                            color: 'gray',
+                            fontWeight: 'bold',
+                            margin: 10
+                        }}>
+                            Uyruk: {userDetails.country}
+                        </Text>
+                        <Text style={{
+                            fontSize: 16,
+                            color: 'gray',
+                            fontWeight: 'bold',
+                            margin: 10
+                        }}>
+                            Cinsiyet: {userDetails.gender == true ? <>Erkek</> : <>Kadın</>}
+                        </Text>
+                        <Text style={{
+                            fontSize: 16,
+                            color: 'gray',
+                            fontWeight: 'bold',
+                            margin: 10
+                        }}>
+                            Telefon Numarası: {userDetails.phoneNumber}
+                        </Text>
+                        <Text style={{
+                            fontSize: 16,
+                            color: 'gray',
+                            fontWeight: 'bold',
+                            margin: 10
+                        }}>
+                            Ben Kimim: {userDetails.description}
+                        </Text>
+                    </View>
+                }
+                {
+                    userDetails ?
+                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                            <TouchableOpacity style={styles.editButton}>
+                                <Text style={styles.editButtonText}>Bilgileri Güncelle</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.deleteButton} onPress={handleUserDetailsDeleteButton}>
+                                <Text style={styles.deleteButtonText}>Bilgileri Sil</Text>
+                            </TouchableOpacity>
+                        </View> :
+                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                            <TouchableOpacity style={styles.createButton}  onPress={handleUserDetailsCreateButton}>
+                                <Text style={styles.createButtonText}>Bilgi Ekle</Text>
+                            </TouchableOpacity>
+                        </View>
                 }
             </View>
             <NavigationBar />
@@ -76,14 +155,14 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'space-between',
-        paddingTop: StatusBar.currentHeight || 40,
+        paddingTop: StatusBar.currentHeight || 10,
         paddingBottom: 20,
     },
     profileContainer: {
         flex: 1,
         justifyContent: 'top',
         alignItems: 'center',
-        marginTop: 100
+        marginTop: 28
     },
     textContainer: {
         alignItems: 'center',
@@ -126,6 +205,19 @@ const styles = StyleSheet.create({
         margin: 10
     },
     deleteButtonText: {
+        color: 'white',
+        fontSize: 16,
+        fontWeight: 'bold'
+    },
+    createButton: {
+        backgroundColor: '#2e8b57',
+        paddingVertical: 10,
+        paddingHorizontal: 20,
+        borderRadius: 5,
+        marginTop: 20,
+        margin: 10
+    },
+    createButtonText: {
         color: 'white',
         fontSize: 16,
         fontWeight: 'bold'

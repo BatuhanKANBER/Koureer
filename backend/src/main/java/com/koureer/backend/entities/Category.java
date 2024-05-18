@@ -7,8 +7,10 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.Size;
+import lombok.Data;
 
 @Entity
+@Data
 @Table(name = "categories", uniqueConstraints = @UniqueConstraint(columnNames = { "name" }))
 public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,20 +19,4 @@ public class Category {
 
     @Size(min = 2)
     String name;
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 }
