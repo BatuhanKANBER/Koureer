@@ -1,5 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
-import { Button, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Alert, Button, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { signin } from "./api";
 import { useState } from "react";
 import { saveApiResponseToAsyncStorage } from "../../state/storage";
@@ -30,6 +30,7 @@ export function Login() {
             }
         } catch (error) {
             console.log(error)
+            Alert.alert("Uyarı", "Kullanıcı adı veya parola hatalı.")
         }
     }
 

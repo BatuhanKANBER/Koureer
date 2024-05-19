@@ -9,6 +9,8 @@ import com.koureer.backend.entities.User;
 import com.koureer.backend.repositories.CompanyRepository;
 import com.koureer.backend.repositories.UserRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class CompanyService {
     @Autowired
@@ -42,6 +44,16 @@ public class CompanyService {
             existingCompany.setDescription(companyCrudDTO.description());
             return companyRepository.save(existingCompany);
         }).orElseThrow(() -> new RuntimeException("Company not found."));
+    }
+
+    @Transactional
+    public void delete(Long id) {
+        if (companyRepository.existsById(id)) {
+            userRepository.unlinkCompany(id);
+            companyRepository.deleteById(id);
+        } else {
+            throw new RuntimeException("Company not found.");
+        }
     }
 
 }

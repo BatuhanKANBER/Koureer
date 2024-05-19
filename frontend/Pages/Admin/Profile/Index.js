@@ -4,6 +4,7 @@ import { StatusBar } from "../Shared/StatusBar";
 import { useEffect, useState } from "react";
 import { useStoredData } from "../../../hooks/getStorageData";
 import { Image } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 export function AdminProfile() {
     const [name, setName] = useState()
@@ -12,6 +13,7 @@ export function AdminProfile() {
     const [image, setImage] = useState()
     const [isLoggedIn, setIsLoggedIn] = useState()
     let data = useStoredData("user_details")
+    const navigation = useNavigation()
 
     useEffect(() => {
         if (data && data.name && data.surname && data.id) {
@@ -21,6 +23,11 @@ export function AdminProfile() {
             setIsLoggedIn(data.id)
         }
     }, [data])
+    
+    const handleEditProfileButton = () => {
+        navigation.navigate("EditAdminProfile")
+    }
+
     const defaultImage = require('../../../assets/admin.jpg');
 
     return (
@@ -35,7 +42,7 @@ export function AdminProfile() {
                 <Text style={styles.email}>{email}</Text>
                 {isLoggedIn > 0 &&
                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                        <TouchableOpacity style={styles.editButton}>
+                        <TouchableOpacity style={styles.editButton} onPress={handleEditProfileButton}>
                             <Text style={styles.editButtonText}>Düzenle</Text>
                         </TouchableOpacity>
                     </View>

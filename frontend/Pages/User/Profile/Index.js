@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import clearAllData from "../../../state/clearStorage";
+import { deleteUser, deleteUserDetails } from "./api";
 
 export function UserProfile() {
     const [name, setName] = useState()
@@ -14,27 +15,47 @@ export function UserProfile() {
     const [image, setImage] = useState()
     const [userDetails, setUserDetails] = useState()
     const [isLoggedIn, setIsLoggedIn] = useState()
+    const [userDetailsId, setUserDetailsId] = useState()
+    const [userId, setUserId] = useState()
     let data = useStoredData("user_details")
     const navigation = useNavigation()
 
     useEffect(() => {
-        if (data && data.id) {
+        if (data) {
             setName(data.name)
             setSurname(data.surname)
             setEmail(data.email)
             setIsLoggedIn(data.id)
-            setUserDetails(data.userDetails)
+            setUserId(data.id)
+            if (data.userDetails) {
+                setUserDetails(data.userDetails)
+                setUserDetailsId(data.userDetails.id)
+            }
         }
     }, [data])
 
-    const deleteUser = () => {
+    const navigateToLogin = () => {
         clearAllData()
         navigation.navigate('login')
     }
 
-    const deleteUserDetails = () => {
-        setUserDetails(null)
-        navigation.navigate('UserProfile')
+    //USER DELETE START
+    const handleUserDelete = async () => {
+        try {
+            const response = await deleteUser(userId)
+            console.log(response.data)
+            Alert.alert(
+                "Bilgi",
+                "Kullanıcı başarıyla silindi.",
+                [
+                    { text: "Ok", onPress: navigateToLogin }
+                ],
+                { cancelable: false }
+            );
+        } catch (error) {
+            console.log(error)
+            alert('Kullanıcı silinirken bir hata meydana geldi.')
+        }
     }
 
     const handleDeleteButton = () => {
@@ -46,10 +67,30 @@ export function UserProfile() {
                     text: "İptal",
                     style: "cancel"
                 },
-                { text: "Evet", onPress: deleteUser }
+                { text: "Evet", onPress: handleUserDelete }
             ],
             { cancelable: false }
         );
+    }
+    //USER DELETE END
+
+    //USER DETAİLS DELETE START
+    const handleUserDetailsDelete = async () => {
+        try {
+            const response = await deleteUserDetails(userDetailsId)
+            console.log(response.data)
+            Alert.alert(
+                "Bilgi",
+                "Kullanıcının detayları başarıyla silindi.",
+                [
+                    { text: "Ok", onPress: navigateToLogin }
+                ],
+                { cancelable: false }
+            );
+        } catch (error) {
+            console.log(error)
+            alert('Kullanıcı detayları silinirken bir hata meydana geldi.')
+        }
     }
 
     const handleUserDetailsDeleteButton = () => {
@@ -61,15 +102,31 @@ export function UserProfile() {
                     text: "İptal",
                     style: "cancel"
                 },
-                { text: "Evet", onPress: deleteUserDetails }
+                { text: "Evet", onPress: handleUserDetailsDelete }
             ],
             { cancelable: false }
         );
     }
+    //USER DETAİLS DELETE END
 
+    //USER DETAİLS CREATE START
     const handleUserDetailsCreateButton = () => {
         navigation.navigate("CreateUserDetails")
     }
+    //USER DETAİLS CREATE END
+
+    //USER DETAİLS EDİT START
+    const handleUserDetailsEditButton = () => {
+        navigation.navigate("EditUserDetails")
+
+    }
+    //USER DETAİLS EDİT END
+
+    //USER EDİT START
+    const handleEditButton = () => {
+        navigation.navigate("EditProfile")
+    }
+    //USER EDİT END
 
     const defaultImage = require('../../../assets/default-user.jpg');
 
@@ -85,7 +142,7 @@ export function UserProfile() {
                 <Text style={styles.email}>{email}</Text>
                 {isLoggedIn > 0 &&
                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                        <TouchableOpacity style={styles.editButton}>
+                        <TouchableOpacity style={styles.editButton} onPress={handleEditButton}>
                             <Text style={styles.editButtonText}>Güncelle</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.deleteButton} onPress={handleDeleteButton}>
@@ -133,7 +190,7 @@ export function UserProfile() {
                 {
                     userDetails ?
                         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                            <TouchableOpacity style={styles.editButton}>
+                            <TouchableOpacity style={styles.editButton} onPress={handleUserDetailsEditButton}>
                                 <Text style={styles.editButtonText}>Bilgileri Güncelle</Text>
                             </TouchableOpacity>
                             <TouchableOpacity style={styles.deleteButton} onPress={handleUserDetailsDeleteButton}>
@@ -141,7 +198,7 @@ export function UserProfile() {
                             </TouchableOpacity>
                         </View> :
                         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                            <TouchableOpacity style={styles.createButton}  onPress={handleUserDetailsCreateButton}>
+                            <TouchableOpacity style={styles.createButton} onPress={handleUserDetailsCreateButton}>
                                 <Text style={styles.createButtonText}>Bilgi Ekle</Text>
                             </TouchableOpacity>
                         </View>

@@ -9,6 +9,8 @@ import com.koureer.backend.entities.UserDetails;
 import com.koureer.backend.repositories.UserDetailsRepository;
 import com.koureer.backend.repositories.UserRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class UserDetailsService {
     @Autowired
@@ -41,6 +43,16 @@ public class UserDetailsService {
             existingUserDetails.setDescription(userDetailsCrudDTO.description());
             return userDetailsRepository.save(existingUserDetails);
         }).orElseThrow(() -> new RuntimeException("User details not found."));
+    }
+
+    @Transactional
+    public void delete(Long id) {
+        if (userDetailsRepository.existsById(id)) {
+            userRepository.unlinkUserDetails(id);
+            userDetailsRepository.deleteById(id);
+        } else {
+            throw new RuntimeException("User details not found.");
+        }
     }
 
 }

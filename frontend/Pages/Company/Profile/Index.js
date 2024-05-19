@@ -7,6 +7,7 @@ import { Image } from "react-native";
 import { Text } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import clearAllData from "../../../state/clearStorage";
+import { deleteCompanyDetails, deleteUser } from "./api";
 
 export function CompanyProfile() {
     const [name, setName] = useState()
@@ -15,42 +16,47 @@ export function CompanyProfile() {
     const [image, setImage] = useState()
     const [isLoggedIn, setIsLoggedIn] = useState()
     const [companyDetails, setCompanyDetails] = useState()
+    const [companyId, setCompanyId] = useState()
+    const [userId, setUserId] = useState()
     const navigation = useNavigation()
     let data = useStoredData("user_details")
 
     useEffect(() => {
-        if (data && data.id) {
+        if (data) {
             setName(data.name)
             setSurname(data.surname)
             setEmail(data.email)
             setIsLoggedIn(data.id)
-            setCompanyDetails(data.company)
+            setUserId(data.id)
+            if (data.company) {
+                setCompanyDetails(data.company)
+                setCompanyId(data.company.id)
+            }
         }
     }, [data])
 
-    const deleteCompanyDetails = () => {
-        setCompanyDetails(null)
-        navigation.navigate('CompanyProfile')
-    }
-
-    const handleCompanyDetailsDeleteButton = () => {
-        Alert.alert(
-            "Şirket Detayları Silme",
-            "Şirketin detaylarını silmek istediğinizden emin misiniz?",
-            [
-                {
-                    text: "İptal",
-                    style: "cancel"
-                },
-                { text: "Evet", onPress: deleteCompanyDetails }
-            ],
-            { cancelable: false }
-        );
-    }
-
-    const deleteUser = () => {
+    const navigateToLogin = () => {
         clearAllData()
         navigation.navigate('login')
+    }
+
+    //DELETE COMPANY START
+    const handleUserDelete = async () => {
+        try {
+            const response = await deleteUser(userId)
+            console.log(response.data)
+            Alert.alert(
+                "Bilgi",
+                "Kullanıcı başarıyla silindi.",
+                [
+                    { text: "Ok", onPress: navigateToLogin }
+                ],
+                { cancelable: false }
+            );
+        } catch (error) {
+            console.log(error)
+            alert('Kullanıcı silinirken bir hata meydana geldi.')
+        }
     }
 
     const handleDeleteButton = () => {
@@ -62,15 +68,66 @@ export function CompanyProfile() {
                     text: "İptal",
                     style: "cancel"
                 },
-                { text: "Evet", onPress: deleteUser }
+                { text: "Evet", onPress: handleUserDelete }
             ],
             { cancelable: false }
         );
     }
+    //DELETE COMPANY END
 
+    //COMPANY DELETE START
+    const handleCompanyDelete = async () => {
+        try {
+            const response = await deleteCompanyDetails(companyId)
+            console.log(response.data)
+            Alert.alert(
+                "Bilgi",
+                "Kullanıcının detayları başarıyla silindi.",
+                [
+                    { text: "Ok", onPress: navigateToLogin }
+                ],
+                { cancelable: false }
+            );
+        } catch (error) {
+            console.log(error)
+            alert('Kullanıcı detayları silinirken bir hata meydana geldi.')
+        }
+    }
+
+    const handleCompanyDeleteButton = () => {
+        Alert.alert(
+            "Kullanıcı Detayları Silme",
+            "Kullanıcının detaylarını silmek istediğinizden emin misiniz?",
+            [
+                {
+                    text: "İptal",
+                    style: "cancel"
+                },
+                { text: "Evet", onPress: handleCompanyDelete }
+            ],
+            { cancelable: false }
+        );
+    }
+    //COMPANY DELETE END
+
+    //COMPANY DETAİLS CREATE START
     const handleCompanyDetailsCreateButton = () => {
         navigation.navigate("CreateCompanyDetails")
     }
+    //COMPANY DETAİLS CREATE END
+
+    //COMPANY DETAİLS EDİT START
+    const handleEditCompanyDetailsButton = () => {
+        navigation.navigate("EditCompanyDetails")
+
+    }    
+    //COMPANY DETAİLS EDİT END
+
+    //COMPANY EDİT START
+    const handleEditButton = () => {
+        navigation.navigate("EditCompanyProfile")
+    }
+    //COMPANY EDİT END
 
     const defaultImage = require('../../../assets/default-company.png');
 
@@ -86,8 +143,8 @@ export function CompanyProfile() {
                 <Text style={styles.email}>{email}</Text>
                 {isLoggedIn > 0 &&
                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                        <TouchableOpacity style={styles.editButton}>
-                            <Text style={styles.editButtonText}>Düzenle</Text>
+                        <TouchableOpacity style={styles.editButton} onPress={handleEditButton}>
+                            <Text style={styles.editButtonText}>Güncelle</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.deleteButton} onPress={handleDeleteButton}>
                             <Text style={styles.deleteButtonText}>Sil</Text>
@@ -134,10 +191,10 @@ export function CompanyProfile() {
                 {
                     companyDetails ?
                         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                            <TouchableOpacity style={styles.editButton}>
+                            <TouchableOpacity style={styles.editButton} onPress={handleEditCompanyDetailsButton}>
                                 <Text style={styles.editButtonText}>Bilgileri Güncelle</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity style={styles.deleteButton} onPress={handleCompanyDetailsDeleteButton}>
+                            <TouchableOpacity style={styles.deleteButton} onPress={handleCompanyDeleteButton}>
                                 <Text style={styles.deleteButtonText}>Bilgileri Sil</Text>
                             </TouchableOpacity>
                         </View> :

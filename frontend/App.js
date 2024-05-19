@@ -14,6 +14,11 @@ import { Users } from './Pages/Admin/Users/Index';
 import { Companies } from './Pages/Admin/Companies/Index';
 import { CreateUserDetails } from './Pages/User/Profile/UserDetails/CreateDetails/CreateUserDetails';
 import { CreateCompanyDetails } from './Pages/Company/Profile/CompanyDetails/CreateDetails/CreateCompanyDetails';
+import { EditUserDetails } from './Pages/User/Profile/UserDetails/EditDetails/EditUserDetails';
+import { EditProfile } from './Pages/User/Profile/EditProfile/EditProfile';
+import { EditCompanyProfile } from './Pages/Company/Profile/EditProfile/EditProfile';
+import { EditCompanyDetails } from './Pages/Company/Profile/CompanyDetails/EditDetails/EditCompanyDetails';
+import { EditAdminProfile } from './Pages/Admin/Profile/EditProfile/EditAdminProfile';
 
 export default function App() {
   const Stack = createNativeStackNavigator()
@@ -27,14 +32,19 @@ export default function App() {
         <Stack.Screen name="JobApplications" component={JobApplications} />
         <Stack.Screen name="UserProfile" component={UserProfile} />
         <Stack.Screen name="CreateUserDetails" component={CreateUserDetails} />
+        <Stack.Screen name='EditUserDetails' component={EditUserDetails} />
+        <Stack.Screen name='EditProfile' component={EditProfile} />
         <Stack.Screen name="CompanyHome" component={CompanyHome} />
         <Stack.Screen name="OurApplications" component={OurApplications} />
         <Stack.Screen name="CompanyProfile" component={CompanyProfile} />
-        <Stack.Screen name='CreateCompanyDetails' component={CreateCompanyDetails}/>
+        <Stack.Screen name='CreateCompanyDetails' component={CreateCompanyDetails} />
+        <Stack.Screen name='EditCompanyProfile' component={EditCompanyProfile} />
+        <Stack.Screen name='EditCompanyDetails' component={EditCompanyDetails} />
         <Stack.Screen name='AdminHome' component={AdminHome} />
         <Stack.Screen name='AdminProfile' component={AdminProfile} />
         <Stack.Screen name='Users' component={Users} />
         <Stack.Screen name='Companies' component={Companies} />
+        <Stack.Screen name='EditAdminProfile' component={EditAdminProfile} />
       </Stack.Navigator>
     </NavigationContainer>
   );
