@@ -2,7 +2,7 @@ package com.koureer.backend.dto;
 
 import com.koureer.backend.entities.Company;
 
-public record CompanyCreate(
+public record CompanyCrudDTO(
 
         String name,
         String country,

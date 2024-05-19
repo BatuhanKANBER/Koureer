@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.koureer.backend.dto.Credentials;
-import com.koureer.backend.dto.UserCreate;
+import com.koureer.backend.dto.UserCreateDTO;
 import com.koureer.backend.dto.UserDTO;
 import com.koureer.backend.entities.User;
 import com.koureer.backend.services.AuthService;
@@ -31,8 +31,8 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    ResponseEntity<GenericMessage> createUser(@Valid @RequestBody UserCreate user) {
-        authService.save(user.toUser());
+    ResponseEntity<GenericMessage> createUser(@Valid @RequestBody UserCreateDTO userCreateDTO) {
+        authService.save(userCreateDTO.toUser());
         return ResponseEntity.ok().body(new GenericMessage("User is created."));
     }
 }

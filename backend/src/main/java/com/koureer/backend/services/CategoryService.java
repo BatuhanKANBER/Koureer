@@ -13,9 +13,10 @@ public class CategoryService {
     @Autowired
     private CategoryRepository categoryRepository;
 
-    public void save(Category category) {
+    public Category save(Category category) {
         try {
             categoryRepository.save(category);
+            return category;
         } catch (UniqueCategoryException exception) {
             throw new UniqueCategoryException();
         }

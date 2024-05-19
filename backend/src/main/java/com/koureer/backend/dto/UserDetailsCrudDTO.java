@@ -2,7 +2,7 @@ package com.koureer.backend.dto;
 
 import com.koureer.backend.entities.UserDetails;
 
-public record UserDetailsCreate(
+public record UserDetailsCrudDTO(
 
         boolean gender,
         String phoneNumber,
