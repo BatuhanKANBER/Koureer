@@ -1,5 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
-import { Alert, Button, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Alert, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { signin } from "./api";
 import { useState } from "react";
 import { saveApiResponseToAsyncStorage } from "../../state/storage";
@@ -39,12 +39,10 @@ export function Login() {
             <View style={styles.container}>
                 <TextInput value={email} onChangeText={setEmail} style={styles.input} placeholder="Email" />
                 <TextInput value={password} onChangeText={setPassword} style={styles.input} secureTextEntry placeholder="Parola" />
+                <TouchableOpacity style={styles.button} onPress={onPress}>
+                    <Text style={styles.buttonText}>Giriş Yap</Text>
+                </TouchableOpacity>
                 <View style={buttonFlex.container}>
-                    <Button
-                        onPress={onPress}
-                        title="Giriş Yap"
-                        color="#2e8b57"
-                    />
                     <View style={{ height: 20 }} />
                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                         <Text style={styles.label}>Hesabınız yok mu?</Text>
@@ -78,6 +76,19 @@ const styles = StyleSheet.create({
     underline: {
         textDecorationLine: 'underline',
     },
+    button: {
+        backgroundColor: '#2e8b57',
+        paddingVertical: 10,
+        paddingHorizontal: 20,
+        borderRadius: 5,
+        marginTop: 20,
+        margin: 10
+    },
+    buttonText: {
+        color: 'white',
+        fontSize: 16,
+        fontWeight: 'bold'
+    }
 })
 
 const buttonFlex = StyleSheet.create({

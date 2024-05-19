@@ -1,6 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
 import { useEffect, useState } from "react";
-import { Alert, Button, StyleSheet, TextInput, View } from "react-native";
+import { Alert, StyleSheet, TextInput, TouchableOpacity, View } from "react-native";
 import { editUser } from "./api";
 import NavigationBar from "../../Shared/NavBar";
 import { StatusBar } from "../../Shared/StatusBar";
@@ -61,11 +61,9 @@ export function EditAdminProfile() {
                     <TextInput value={name} onChangeText={setName} style={styles.input} placeholder="Ad" />
                     <TextInput value={surname} onChangeText={setSurname} style={styles.input} placeholder="Soyad" />
                     <TextInput value={email} onChangeText={setEmail} style={styles.input} placeholder="Email" />
-                    <Button
-                        onPress={onPress}
-                        title="Güncelle"
-                        color="#2e8b57"
-                    />
+                    <TouchableOpacity style={styles.editButton} onPress={onPress}>
+                        <Text style={styles.editButtonText}>Güncelle</Text>
+                    </TouchableOpacity>
                     <View style={{ height: 20 }} />
                 </View>
                 <NavigationBar />
@@ -101,5 +99,18 @@ const styles = StyleSheet.create({
     underline: {
         textDecorationLine: 'underline',
     },
+    editButton: {
+        backgroundColor: 'gray',
+        paddingVertical: 10,
+        paddingHorizontal: 20,
+        borderRadius: 5,
+        marginTop: 20,
+        margin: 10
+    },
+    editButtonText: {
+        color: 'white',
+        fontSize: 16,
+        fontWeight: 'bold'
+    }
 })
 

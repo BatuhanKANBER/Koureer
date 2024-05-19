@@ -56,11 +56,9 @@ export function Register() {
                     />
                     <Text style={styles.label}> Şirket hesabı oluşturmak  için seçiniz.</Text>
                 </View>
-                <Button
-                    onPress={onPress}
-                    title="Kayıt Ol"
-                    color="#2e8b57"
-                />
+                <TouchableOpacity style={styles.button} onPress={onPress}>
+                    <Text style={styles.buttonText}>Kaydet</Text>
+                </TouchableOpacity>
                 <View style={{ height: 20 }} />
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                     <Text style={styles.label}>Zaten bir hesabınız varsa, </Text>
@@ -93,5 +91,18 @@ const styles = StyleSheet.create({
     underline: {
         textDecorationLine: 'underline',
     },
+    button: {
+        backgroundColor: '#2e8b57',
+        paddingVertical: 10,
+        paddingHorizontal: 20,
+        borderRadius: 5,
+        marginTop: 20,
+        margin: 10
+    },
+    buttonText: {
+        color: 'white',
+        fontSize: 16,
+        fontWeight: 'bold'
+    }
 })
 
