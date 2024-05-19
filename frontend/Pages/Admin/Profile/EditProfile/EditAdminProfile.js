@@ -1,6 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
 import { useEffect, useState } from "react";
-import { Alert, StyleSheet, TextInput, TouchableOpacity, View } from "react-native";
+import { Alert, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { editUser } from "./api";
 import NavigationBar from "../../Shared/NavBar";
 import { StatusBar } from "../../Shared/StatusBar";

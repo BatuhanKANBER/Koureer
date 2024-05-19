@@ -1,5 +1,7 @@
 package com.koureer.backend.dto;
 
+import com.koureer.backend.entities.Company;
+
 import lombok.Data;
 
 @Data
@@ -10,11 +12,11 @@ public class CompanyDTO {
     String country;
     String description;
 
-    public CompanyDTO(long id, String name, String phoneNumber, String country, String description) {
-        this.id = id;
-        this.name = name;
-        this.phoneNumber = phoneNumber;
-        this.country = country;
-        this.description = description;
+    public CompanyDTO(Company company) {
+        setId(company.getId());
+        setName(company.getName());
+        setPhoneNumber(company.getPhoneNumber());
+        setCountry(company.getCountry());
+        setDescription(company.getDescription());
     }
 }

@@ -26,8 +26,7 @@ public class AuthController {
     ResponseEntity<?> login(@RequestBody Credentials credentials) {
         User user = authService.login(credentials);
         return ResponseEntity.ok()
-                .body(new UserDTO(user.getId(), user.getName(), user.getSurname(), user.getEmail(), user.getRole(),
-                        user.getCompany(), user.getUserDetails()));
+                .body(new UserDTO(user));
     }
 
     @PostMapping("/register")

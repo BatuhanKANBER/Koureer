@@ -1,6 +1,8 @@
 package com.koureer.backend.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.koureer.backend.dto.UserUpdateDTO;
@@ -30,6 +32,14 @@ public class UserService {
         } else {
             throw new RuntimeException("User not found.");
         }
+    }
+
+    public Page<User> getUsers(Pageable page) {
+        return userRepository.findAll(page);
+    }
+
+    public User getUser(Long id) {
+        return userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found."));
     }
 
 }

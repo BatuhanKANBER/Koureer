@@ -27,15 +27,13 @@ public class CompanyController {
     @PostMapping("/{id}/create")
     ResponseEntity<?> createCompanies(@Valid @PathVariable Long id, @RequestBody CompanyCrudDTO companyCrudDTO) {
         Company company = companyService.save(id, companyCrudDTO.toCompany());
-        return ResponseEntity.ok().body(new CompanyDTO(company.getId(), company.getName(), company.getPhoneNumber(),
-                company.getCountry(), company.getDescription()));
+        return ResponseEntity.ok().body(new CompanyDTO(company));
     }
 
     @PutMapping("/{id}/update")
     ResponseEntity<?> updateCompany(@Valid @PathVariable Long id, @RequestBody CompanyCrudDTO companyCrudDTO) {
         Company company = companyService.update(id, companyCrudDTO);
-        return ResponseEntity.ok().body(new CompanyDTO(company.getId(), company.getName(), company.getPhoneNumber(),
-                company.getCountry(), company.getDescription()));
+        return ResponseEntity.ok().body(new CompanyDTO(company));
     }
 
     @DeleteMapping("/{id}")

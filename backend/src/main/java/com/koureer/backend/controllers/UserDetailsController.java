@@ -28,16 +28,14 @@ public class UserDetailsController {
     ResponseEntity<?> createUserDetails(@Valid @PathVariable Long id,
             @RequestBody UserDetailsCrudDTO userDetailsCrudDTO) {
         UserDetails userDetails = userDetailsService.save(id, userDetailsCrudDTO.toUserDetails());
-        return ResponseEntity.ok().body(new UserDetailsDTO(userDetails.getId(), userDetails.isGender(),
-                userDetails.getPhoneNumber(), userDetails.getCountry(), userDetails.getDescription()));
+        return ResponseEntity.ok().body(new UserDetailsDTO(userDetails));
     }
 
     @PutMapping("/{id}/update")
     ResponseEntity<?> updateUserDetails(@Valid @PathVariable Long id,
             @RequestBody UserDetailsCrudDTO userDetailsCrudDTO) {
         UserDetails userDetails = userDetailsService.update(id, userDetailsCrudDTO);
-        return ResponseEntity.ok().body(new UserDetailsDTO(userDetails.getId(), userDetails.isGender(),
-                userDetails.getPhoneNumber(), userDetails.getCountry(), userDetails.getDescription()));
+        return ResponseEntity.ok().body(new UserDetailsDTO(userDetails));
     }
 
     @DeleteMapping("/{id}")
