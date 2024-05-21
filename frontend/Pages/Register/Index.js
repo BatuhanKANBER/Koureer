@@ -9,6 +9,7 @@ export function Register() {
     const [surname, setSurname] = useState()
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
+    const [passwordConfirm, setPasswordConfirm] = useState()
     const [isChecked, setIsChecked] = useState(false);
     const [role, setRole] = useState('USER');
     const navigation = useNavigation()
@@ -48,6 +49,7 @@ export function Register() {
                 <TextInput value={surname} onChangeText={setSurname} style={styles.input} placeholder="Soyad" />
                 <TextInput value={email} onChangeText={setEmail} style={styles.input} placeholder="Email" />
                 <TextInput value={password} onChangeText={setPassword} style={styles.input} secureTextEntry placeholder="Parola" />
+                <TextInput value={passwordConfirm} onChangeText={setPasswordConfirm} style={styles.input} secureTextEntry placeholder="Parolayı Onayla" />
                 <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10 }}>
                     <Checkbox
                         color='#2e8b57'
@@ -56,7 +58,9 @@ export function Register() {
                     />
                     <Text style={styles.label}> Şirket hesabı oluşturmak  için seçiniz.</Text>
                 </View>
-                <TouchableOpacity style={styles.button} onPress={onPress}>
+                <TouchableOpacity
+                    disabled={password !== passwordConfirm}
+                    style={styles.button} onPress={onPress}>
                     <Text style={styles.buttonText}>Kaydet</Text>
                 </TouchableOpacity>
                 <View style={{ height: 20 }} />
@@ -66,7 +70,7 @@ export function Register() {
                         <Text style={[styles.label, styles.underline]}>Giriş Yap</Text>
                     </TouchableOpacity>
                 </View>
-            </View>
+            </View >
         </>
     )
 }

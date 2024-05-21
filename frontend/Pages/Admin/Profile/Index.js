@@ -43,7 +43,7 @@ export function AdminProfile() {
                 {isLoggedIn > 0 &&
                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                         <TouchableOpacity style={styles.editButton} onPress={handleEditProfileButton}>
-                            <Text style={styles.editButtonText}>Düzenle</Text>
+                            <Text style={styles.editButtonText}>Güncelle</Text>
                         </TouchableOpacity>
                     </View>
                 }

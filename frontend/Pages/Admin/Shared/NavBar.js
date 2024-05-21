@@ -17,6 +17,9 @@ const NavigationBar = () => {
             <TouchableOpacity onPress={() => handleGoToScreen('Users')}>
                 <Text style={styles.link}>Kullanıcılar</Text>
             </TouchableOpacity>
+            <TouchableOpacity onPress={() => handleGoToScreen('Categories')}>
+                <Text style={styles.link}>Kategoriler</Text>
+            </TouchableOpacity>
             <TouchableOpacity onPress={() => handleGoToScreen('AdminProfile')}>
                 <Text style={styles.link}>Profilim</Text>
             </TouchableOpacity>

@@ -19,6 +19,10 @@ import { EditCompanyProfile } from './Pages/Company/Profile/EditProfile/EditProf
 import { EditCompanyDetails } from './Pages/Company/Profile/CompanyDetails/EditDetails/EditCompanyDetails';
 import { EditAdminProfile } from './Pages/Admin/Profile/EditProfile/EditAdminProfile';
 import { User } from './Pages/Admin/User/Index';
+import { Categories } from './Pages/Admin/Category/Index';
+import { CategoryCreate } from './Pages/Admin/Category/CategoryCreate/CategoryCreate';
+import { Category } from './Pages/Admin/Category/Category';
+import { CategoryEdit } from './Pages/Admin/Category/CategoryEdit';
 
 export default function App() {
   const Stack = createNativeStackNavigator()
@@ -44,7 +48,11 @@ export default function App() {
         <Stack.Screen name='AdminProfile' component={AdminProfile} />
         <Stack.Screen name='Users' component={Users} />
         <Stack.Screen name='EditAdminProfile' component={EditAdminProfile} />
-        <Stack.Screen name='User' component={User} options={({ route }) => ({ title: route.params.name })}/>
+        <Stack.Screen name='User' component={User} options={({ route }) => ({ title: route.params.name })} />
+        <Stack.Screen name='Categories' component={Categories} />
+        <Stack.Screen name='CategoryCreate' component={CategoryCreate} />
+        <Stack.Screen name='Category' component={Category} options={({ route }) => ({ title: route.params.name })} />
+        <Stack.Screen name='CategoryEdit' component={CategoryEdit} options={({ route }) => ({ title: route.params.name })} />
       </Stack.Navigator>
     </NavigationContainer>
   );
