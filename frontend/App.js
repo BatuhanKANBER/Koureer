@@ -6,7 +6,6 @@ import { UserHome } from './Pages/User/Index';
 import { UserProfile } from './Pages/User/Profile/Index';
 import { JobApplications } from './Pages/User/Applications/Index';
 import { CompanyHome } from './Pages/Company/Index';
-import { OurApplications } from './Pages/Company/Applications/Index';
 import { CompanyProfile } from './Pages/Company/Profile/Index';
 import { AdminHome } from './Pages/Admin/Index';
 import { AdminProfile } from './Pages/Admin/Profile/Index';
@@ -23,6 +22,7 @@ import { Categories } from './Pages/Admin/Category/Index';
 import { CategoryCreate } from './Pages/Admin/Category/CategoryCreate/CategoryCreate';
 import { Category } from './Pages/Admin/Category/Category';
 import { CategoryEdit } from './Pages/Admin/Category/CategoryEdit';
+import { OurAdvertisements } from './Pages/Company/Advertisement/Index';
 
 export default function App() {
   const Stack = createNativeStackNavigator()
@@ -39,7 +39,7 @@ export default function App() {
         <Stack.Screen name='EditUserDetails' component={EditUserDetails} />
         <Stack.Screen name='EditProfile' component={EditProfile} />
         <Stack.Screen name="CompanyHome" component={CompanyHome} />
-        <Stack.Screen name="OurApplications" component={OurApplications} />
+        <Stack.Screen name="OurAdvertisements" component={OurAdvertisements} />
         <Stack.Screen name="CompanyProfile" component={CompanyProfile} />
         <Stack.Screen name='CreateCompanyDetails' component={CreateCompanyDetails} />
         <Stack.Screen name='EditCompanyProfile' component={EditCompanyProfile} />

@@ -1,5 +1,8 @@
 package com.koureer.backend.dto;
 
+import java.util.List;
+
+import com.koureer.backend.entities.Advertisement;
 import com.koureer.backend.entities.Company;
 import com.koureer.backend.entities.User;
 import com.koureer.backend.entities.UserDetails;
@@ -15,6 +18,7 @@ public class UserDTO {
     String role;
     Company company;
     UserDetails userDetails;
+    List<Advertisement> advertisements;
 
     public UserDTO(User user) {
         setId(user.getId());
@@ -24,5 +28,6 @@ public class UserDTO {
         setRole(user.getRole());
         setCompany(user.getCompany());
         setUserDetails(user.getUserDetails());
+        setAdvertisements(user.getAdvertisements());
     }
 }

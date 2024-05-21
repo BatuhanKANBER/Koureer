@@ -1,5 +1,7 @@
 package com.koureer.backend.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -51,6 +53,10 @@ public class CategoryService {
 
     public Category getCategory(Long id) {
         return categoryRepository.findById(id).orElseThrow(() -> new RuntimeException("Category not found."));
+    }
+
+    public List<Category> getAllCategories() {
+        return categoryRepository.findAll();
     }
 
 }

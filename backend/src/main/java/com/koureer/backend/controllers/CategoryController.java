@@ -1,5 +1,7 @@
 package com.koureer.backend.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -53,5 +55,10 @@ public class CategoryController {
     @GetMapping("/{id}")
     CategoryDTO getCategoryById(@PathVariable Long id) {
         return new CategoryDTO(categoryService.getCategory(id));
+    }
+
+    @GetMapping("/all")
+    List<Category> listCategories() {
+        return categoryService.getAllCategories();
     }
 }

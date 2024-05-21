@@ -1,13 +1,14 @@
 import { StyleSheet, Text, View } from "react-native";
 import NavigationBar from "../Shared/NavBar";
 import { StatusBar } from "../Shared/StatusBar";
+import { Categories } from "./CategoryDropdawn/Index";
 
-export function OurApplications() {
+export function OurAdvertisements() {
     return (
         <View style={styles.container}>
             <StatusBar />
             <Text>
-                İlanlarımız
+                <Categories />
             </Text>
             <NavigationBar />
         </View>
