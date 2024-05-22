@@ -1,13 +1,19 @@
-import { StyleSheet, TouchableOpacity, View } from "react-native"
+import { Alert, StyleSheet, TouchableOpacity, View } from "react-native"
 import { StatusBar } from "../../Shared/StatusBar"
 import NavigationBar from "../../Shared/NavBar"
 import { TextInput } from "react-native"
 import { createCategory } from "./api"
 import { useState } from "react"
 import { Text } from "react-native"
+import { useNavigation } from "@react-navigation/native"
 
 export function CategoryCreate() {
     const [name, setName] = useState()
+    const navigation = useNavigation()
+
+    const navigateToHome = () => {
+        navigation.navigate("AdminHome")
+    }
 
     const onPress = async (event) => {
         event.preventDefault();
@@ -17,7 +23,14 @@ export function CategoryCreate() {
                 name,
             })
             console.log(response.data.message)
-            alert('Kategori oluşturuldu.')
+            Alert.alert(
+                "Bilgi",
+                "Kategori başarıyla oluşturuldu.",
+                [
+                    { text: "Ok", onPress: navigateToHome }
+                ],
+                { cancelable: false }
+            );
         } catch (error) {
             console.log(error)
             alert('Kategori oluşturulurken bir hata meydana geldi.')

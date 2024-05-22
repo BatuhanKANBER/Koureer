@@ -29,7 +29,7 @@ public class AdvertService {
         List<Advertisement> listAdvertisements = new ArrayList<>();
         User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found."));
         try {
-            if (user.getRole() == "COMPANY") {
+            if (user.getRole().equals("COMPANY")) {
                 advertisement.setUser(user);
                 listAdvertisements.add(advertisement);
                 user.setAdvertisements(listAdvertisements);

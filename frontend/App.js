@@ -23,6 +23,9 @@ import { CategoryCreate } from './Pages/Admin/Category/CategoryCreate/CategoryCr
 import { Category } from './Pages/Admin/Category/Category';
 import { CategoryEdit } from './Pages/Admin/Category/CategoryEdit';
 import { OurAdvertisements } from './Pages/Company/Advertisement/Index';
+import { CreateAdvert } from './Pages/Company/Advertisement/CreateAdvert/Index';
+import { Advert } from './Pages/Company/Advertisement/Advert';
+import { AdvertEdit } from './Pages/Company/Advertisement/AdvertEdit';
 
 export default function App() {
   const Stack = createNativeStackNavigator()
@@ -44,6 +47,9 @@ export default function App() {
         <Stack.Screen name='CreateCompanyDetails' component={CreateCompanyDetails} />
         <Stack.Screen name='EditCompanyProfile' component={EditCompanyProfile} />
         <Stack.Screen name='EditCompanyDetails' component={EditCompanyDetails} />
+        <Stack.Screen name='CreateAdvert' component={CreateAdvert} />
+        <Stack.Screen name='Advert' component={Advert} options={({ route }) => ({ title: route.params.name })} />
+        <Stack.Screen name='AdvertEdit' component={AdvertEdit} options={({ route }) => ({ title: route.params.name })} />
         <Stack.Screen name='AdminHome' component={AdminHome} />
         <Stack.Screen name='AdminProfile' component={AdminProfile} />
         <Stack.Screen name='Users' component={Users} />

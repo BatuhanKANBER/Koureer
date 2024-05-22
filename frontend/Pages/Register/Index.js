@@ -1,6 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
-import { useEffect, useState } from "react";
-import { Button, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { useState } from "react";
+import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { createUser } from "./api";
 import Checkbox from "expo-checkbox";
 
@@ -70,7 +70,7 @@ export function Register() {
                         <Text style={[styles.label, styles.underline]}>Giriş Yap</Text>
                     </TouchableOpacity>
                 </View>
-            </View >
+            </View>
         </>
     )
 }

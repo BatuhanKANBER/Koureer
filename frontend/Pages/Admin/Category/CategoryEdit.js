@@ -1,9 +1,10 @@
 import { useNavigation } from "@react-navigation/native";
 import { useEffect, useState } from "react";
-import { Alert, Button, StyleSheet, TextInput, View } from "react-native";
+import { Alert, StyleSheet, Text, TextInput, View } from "react-native";
 import { editCategory } from "./api";
 import NavigationBar from "../Shared/NavBar";
 import { StatusBar } from "../Shared/StatusBar";
+import { TouchableOpacity } from "react-native";
 
 
 export function CategoryEdit({ route }) {
@@ -49,11 +50,9 @@ export function CategoryEdit({ route }) {
                 <StatusBar />
                 <View style={styles.elementsContainer}>
                     <TextInput value={name} onChangeText={setName} style={styles.input} placeholder="Ad" />
-                    <Button
-                        onPress={onPress}
-                        title="Güncelle"
-                        color="#2e8b57"
-                    />
+                    <TouchableOpacity style={styles.button} onPress={onPress}>
+                        <Text style={styles.buttonText}>Güncelle</Text>
+                    </TouchableOpacity>
                     <View style={{ height: 20 }} />
                 </View>
                 <NavigationBar />
@@ -89,5 +88,12 @@ const styles = StyleSheet.create({
     underline: {
         textDecorationLine: 'underline',
     },
+    button: {
+        backgroundColor: '#2e8b57',
+        paddingVertical: 10,
+        paddingHorizontal: 20,
+        borderRadius: 5,
+        marginTop: 10
+    }
 })
 

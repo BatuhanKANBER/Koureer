@@ -32,7 +32,7 @@ export function Categories() {
     return (
         <View style={styles.container}>
             <StatusBar />
-            <View style={styles.profileContainer}>
+            <View style={styles.elementsContainer}>
                 {
                     categoryPage.numberOfElements > 0 ?
                         <View style={{ flexDirection: "column", alignItems: "center" }}>
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         paddingTop: StatusBar.currentHeight || 10,
     },
-    profileContainer: {
+    elementsContainer: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',

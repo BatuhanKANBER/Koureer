@@ -22,7 +22,7 @@ public class UserDetailsService {
     public UserDetails save(Long id, UserDetails userDetails) {
         User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found."));
         try {
-            if (user.getRole() == "USER") {
+            if (user.getRole().equals("USER")) {
                 user.setUserDetails(userDetails);
                 userDetailsRepository.save(userDetails);
                 userRepository.save(user);

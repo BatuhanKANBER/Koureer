@@ -23,7 +23,7 @@ public class CompanyService {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("User is not found."));
         try {
-            if (user.getRole() == "COMPANY") {
+            if (user.getRole().equals("COMPANY")) {
                 user.setCompany(company);
                 companyRepository.save(company);
                 userRepository.save(user);
