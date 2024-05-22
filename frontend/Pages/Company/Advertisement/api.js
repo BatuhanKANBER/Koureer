@@ -1,7 +1,7 @@
 import http from "../../../lib/http"
 
-export function loadAdverts(page = 0) {
-    return http.get("http://192.168.171.30:8080/api/adverts/list", { params: { page, size: 4 } });
+export function loadAdverts(id, page = 0) {
+    return http.get(`http://192.168.171.30:8080/api/adverts/${id}/list`, { params: { page, size: 4 } });
 }
 
 export function deleteAdvert(id) {

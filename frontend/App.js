@@ -22,10 +22,10 @@ import { Categories } from './Pages/Admin/Category/Index';
 import { CategoryCreate } from './Pages/Admin/Category/CategoryCreate/CategoryCreate';
 import { Category } from './Pages/Admin/Category/Category';
 import { CategoryEdit } from './Pages/Admin/Category/CategoryEdit';
-import { OurAdvertisements } from './Pages/Company/Advertisement/Index';
 import { CreateAdvert } from './Pages/Company/Advertisement/CreateAdvert/Index';
 import { Advert } from './Pages/Company/Advertisement/Advert';
 import { AdvertEdit } from './Pages/Company/Advertisement/AdvertEdit';
+import OurAdvertisements from './Pages/Company/Advertisement/Index';
 
 export default function App() {
   const Stack = createNativeStackNavigator()

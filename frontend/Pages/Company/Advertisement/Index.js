@@ -6,9 +6,11 @@ import { useCallback, useEffect, useState } from "react";
 import { loadAdverts } from "./api";
 import { useNavigation } from "@react-navigation/native";
 import { AdvertItems } from "./Components/AdvertItems";
+import { useStoredData } from "../../../hooks/getStorageData";
 
-export function OurAdvertisements() {
+OurAdvertisements = () => {
     const navigation = useNavigation()
+    const [id, setId] = useState()
     const [advertPage, setAdvertPage] = useState({
         content: [],
         last: false,
@@ -16,14 +18,27 @@ export function OurAdvertisements() {
         number: 0
     });
 
-    const getAdverts = useCallback(async (page = 0) => {
-        const response = await loadAdverts(page);
-        setAdvertPage(response.data);
-    }, []);
+    const data = useStoredData("user_details")
 
     useEffect(() => {
-        getAdverts();
-    }, [getAdverts]);
+        if (data) {
+            setId(data.id)
+        }
+    }, [data])
+
+    const getAdverts = useCallback(async (page = 0) => {
+        if (id) {
+            const response = await loadAdverts(id, page)
+            setAdvertPage(response.data)
+            console.log(id)
+        }
+    }, [id]);
+
+    useEffect(() => {
+        if (id) {
+            getAdverts()
+        }
+    }, [id, getAdverts])
 
     const navigateToCreateAdvertPage = () => {
         navigation.navigate("CreateAdvert")
@@ -125,3 +140,5 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
 });
+
+export default OurAdvertisements

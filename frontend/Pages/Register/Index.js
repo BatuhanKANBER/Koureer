@@ -1,6 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Alert, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { createUser } from "./api";
 import Checkbox from "expo-checkbox";
 
@@ -23,6 +23,10 @@ export function Register() {
         }
     };
 
+    const navigateToLoginPage = () => {
+        navigation.navigate("login")
+    }
+
     const onPress = async (event) => {
         event.preventDefault();
 
@@ -35,7 +39,14 @@ export function Register() {
                 role
             })
             console.log(response.data.message)
-            alert('Kullanıcı oluşturuldu.')
+            Alert.alert(
+                "Bilgi",
+                "Kullanıcı oluşturuldu.",
+                [
+                    { text: "Ok", onPress: navigateToLoginPage }
+                ],
+                { cancelable: false }
+            );
         } catch (error) {
             console.log(error)
             alert('Kullanıcı oluşturulurken bir hata meydana geldi.')

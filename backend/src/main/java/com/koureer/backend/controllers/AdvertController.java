@@ -56,4 +56,9 @@ public class AdvertController {
     AdvertDTO getAdvertById(@PathVariable Long id) {
         return new AdvertDTO(advertService.getAdvert(id));
     }
+
+    @GetMapping("/{id}/list")
+    Page<AdvertDTO> getAdvertsForUser(@PathVariable Long id, Pageable page) {
+        return advertService.getAdvertisementsForUser(id, page).map(AdvertDTO::new);
+    }
 }

@@ -25,6 +25,9 @@ public class AdvertService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private UserService userService;
+
     public Advertisement save(Long id, Advertisement advertisement) {
         List<Advertisement> listAdvertisements = new ArrayList<>();
         User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found."));
@@ -76,5 +79,10 @@ public class AdvertService {
 
     public Advertisement getAdvert(Long id) {
         return advertRepository.findById(id).orElseThrow(() -> new RuntimeException("Job advertisement not found."));
+    }
+
+    public Page<Advertisement> getAdvertisementsForUser(Long id, Pageable page) {
+        User user = userService.getUser(id);
+        return advertRepository.findByUser(user, page);
     }
 }
