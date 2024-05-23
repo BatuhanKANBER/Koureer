@@ -1,11 +1,12 @@
 import { useNavigation } from "@react-navigation/native";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Image, StyleSheet, TouchableOpacity, View } from "react-native";
 import { Text } from "react-native";
 
 export function UserItem({ item }) {
     const [image, setImage] = useState()
-    const defaultImage = require('../../../../assets/default-user.jpg');
+    const defaultUserImage = require('../../../../assets/default-user.jpg');
+    const defaultCompanyImage = require('../../../../assets/default-company.png');
     const navigation = useNavigation()
 
     const goToUserProfile = (item) => {
@@ -17,7 +18,10 @@ export function UserItem({ item }) {
                 item.role !== "ADMIN" &&
                 <TouchableOpacity style={styles.container} onPress={() => goToUserProfile(item)}>
                     <Image
-                        source={image ? { uri: image } : defaultImage}
+                        source={image ? { uri: image } :
+                            item.role === "COMPANY" ? defaultCompanyImage :
+                                defaultUserImage
+                        }
                         style={styles.avatar}
                     />
                     <Text style={styles.text}>  {item.name} {item.surname} </Text>

@@ -6,7 +6,9 @@ export function AdminHome() {
     return (
         <View style={styles.container}>
             <StatusBar />
-            <Text>Admin Ana Sayfası</Text>
+            <View style={styles.elementsContainer}>
+                <Text style={{ fontSize: 30 }}>HOŞGELDİN, YÖNETİCİ.</Text>
+            </View>
             <NavigationBar />
         </View>
     )
@@ -15,6 +17,14 @@ export function AdminHome() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingTop: 10,
+        justifyContent: 'space-between',
+        paddingTop: StatusBar.currentHeight || 10,
+    },
+    elementsContainer: {
+        flex: 1,
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        marginTop: 300,
+        width: '100%',
     }
 })

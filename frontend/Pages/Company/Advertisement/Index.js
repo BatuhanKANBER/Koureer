@@ -8,7 +8,7 @@ import { useNavigation } from "@react-navigation/native";
 import { AdvertItems } from "./Components/AdvertItems";
 import { useStoredData } from "../../../hooks/getStorageData";
 
-OurAdvertisements = () => {
+export function OurAdvertisements() {
     const navigation = useNavigation()
     const [id, setId] = useState()
     const [advertPage, setAdvertPage] = useState({
@@ -59,7 +59,6 @@ OurAdvertisements = () => {
                                 contentContainerStyle={styles.listContent}
                             />
                         </View>
-
                         :
                         <Text>Yayınlanmış herhangi bir ilanınız bulunamadı.</Text>
                 }
@@ -141,4 +140,3 @@ const styles = StyleSheet.create({
     },
 });
 
-export default OurAdvertisements

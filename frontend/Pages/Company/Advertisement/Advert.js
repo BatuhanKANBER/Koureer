@@ -15,7 +15,7 @@ export function Advert({ route }) {
     const [department, setDepartment] = useState()
     const [description, setDescription] = useState()
     const [item, setItem] = useState()
-    
+
     useEffect(() => {
         if (route.params) {
             setId(route.params.item.id)
@@ -82,6 +82,10 @@ export function Advert({ route }) {
         navigation.navigate("AdvertEdit", item)
     }
 
+    const navigateToApplycatedUsersPage = (item) => {
+        navigation.navigate("UsersForAdverts", item)
+    }
+
     return (
         <View style={styles.container}>
             <StatusBar />
@@ -102,6 +106,11 @@ export function Advert({ route }) {
                         </TouchableOpacity>
                     </View>
                 </View>
+                <TouchableOpacity
+                    onPress={() => navigateToApplycatedUsersPage(item)}
+                    style={styles.button}>
+                    <Text style={styles.buttonText}>Başvuruları Görüntüle</Text>
+                </TouchableOpacity>
             </View>
             <NavigationBar />
         </View>
@@ -147,6 +156,21 @@ const styles = StyleSheet.create({
         margin: 10
     },
     editButtonText: {
+        color: 'white',
+        fontSize: 16,
+        fontWeight: 'bold'
+    },
+    button: {
+        backgroundColor: '#2e8b57',
+        paddingVertical: 10,
+        paddingHorizontal: 20,
+        borderRadius: 5,
+        marginTop: 20,
+        margin: 10,
+        alignItems: "center",
+        width: "50%"
+    },
+    buttonText: {
         color: 'white',
         fontSize: 16,
         fontWeight: 'bold'

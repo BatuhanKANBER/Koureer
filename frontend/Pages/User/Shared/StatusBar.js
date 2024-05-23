@@ -47,8 +47,11 @@ export function StatusBar() {
             <TouchableOpacity style={styles.profileButton} onPress={handleProfileButton}>
                 <Text style={styles.user}>{name} {surname}</Text>
             </TouchableOpacity>
+            <Text style={styles.logo}>
+                KOUREER
+            </Text>
             <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
-                <Text style={styles.logoutText}>Logout</Text>
+                <Text style={styles.logoutText}>Çıkış Yap</Text>
             </TouchableOpacity>
         </View>
     )
@@ -79,4 +82,9 @@ const styles = StyleSheet.create({
         marginRight: 10,
         color: 'gray',
     },
+    logo: {
+        fontSize: 20,
+        fontWeight: "bold",
+        color: "#2e8b57"
+    }
 })

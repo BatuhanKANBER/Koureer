@@ -13,6 +13,7 @@ import com.koureer.backend.entities.Advertisement;
 import com.koureer.backend.entities.Category;
 import com.koureer.backend.entities.User;
 import com.koureer.backend.repositories.AdvertRepository;
+import com.koureer.backend.repositories.ApplicationRepository;
 import com.koureer.backend.repositories.UserRepository;
 
 import jakarta.transaction.Transactional;
@@ -27,6 +28,9 @@ public class AdvertService {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private ApplicationRepository applicationRepository;
 
     public Advertisement save(Long id, Advertisement advertisement) {
         List<Advertisement> listAdvertisements = new ArrayList<>();
@@ -67,6 +71,7 @@ public class AdvertService {
     @Transactional
     public void delete(Long id) {
         if (advertRepository.existsById(id)) {
+            applicationRepository.deleteByAdvertId(id);
             advertRepository.deleteById(id);
         } else {
             throw new RuntimeException("Job advertisement not found.");

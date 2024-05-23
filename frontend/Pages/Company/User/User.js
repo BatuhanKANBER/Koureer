@@ -1,15 +1,10 @@
-import { Alert, Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { StatusBar } from "../Shared/StatusBar";
 import NavigationBar from "../Shared/NavBar";
 import { useEffect, useState } from "react";
 import { getUserById } from "./api";
-import { useNavigation } from "@react-navigation/native";
-import { deleteUser, deleteUserDetails } from "../../User/Profile/api";
-import { deleteCompanyDetails } from "../../Company/Profile/api";
 
-
-
-export function User({ route }) {
+export function UserForCompany({ route }) {
     const [id, setId] = useState()
     const [name, setName] = useState()
     const [surname, setSurname] = useState()
@@ -17,22 +12,6 @@ export function User({ route }) {
     const [image, setImage] = useState()
     const [userDetails, setUserDetails] = useState()
     const [companyDetails, setCompany] = useState()
-    const [userDetailsId, setUserDetailsId] = useState()
-    const [companyDetailsId, setCompanyDetailsId] = useState()
-    const [role, setRole] = useState()
-    const navigation = useNavigation()
-
-    useEffect(() => {
-        if (userDetails) {
-            setUserDetailsId(userDetails.id)
-        }
-    }, [userDetails])
-
-    useEffect(() => {
-        if (companyDetails) {
-            setCompanyDetailsId(companyDetails.id)
-        }
-    }, [companyDetails])
 
     useEffect(() => {
         if (route.params) {
@@ -48,7 +27,6 @@ export function User({ route }) {
             setEmail(response.data.email)
             setUserDetails(response.data.userDetails)
             setCompany(response.data.company)
-            setRole(response.data.role)
         } catch (error) {
             console.log(error)
         }
@@ -58,118 +36,7 @@ export function User({ route }) {
         getUser();
     }, [getUser]);
 
-    const navigateToHomePage = () => {
-        navigation.navigate("AdminHome")
-    }
-
-    //USER DELETE START
-    const handleUserDelete = async () => {
-        try {
-            const response = await deleteUser(id)
-            console.log(response.data)
-            Alert.alert(
-                "Bilgi",
-                "Kullanıcı başarıyla silindi.",
-                [
-                    { text: "Ok", onPress: navigateToHomePage }
-                ],
-                { cancelable: false }
-            );
-        } catch (error) {
-            console.log(error)
-            alert('Kullanıcı silinirken bir hata meydana geldi.')
-        }
-    }
-
-    const handleDeleteButton = () => {
-        Alert.alert(
-            "Kullanıcı Silme",
-            "Kullanıcıyı silmek istediğinizden emin misiniz?",
-            [
-                {
-                    text: "İptal",
-                    style: "cancel"
-                },
-                { text: "Evet", onPress: handleUserDelete }
-            ],
-            { cancelable: false }
-        );
-    }
-    //USER DELETE END
-
-    //COMPANY DETAİLS DELETE START
-    const handleCompanyDelete = async () => {
-        try {
-            const response = await deleteCompanyDetails(companyDetailsId)
-            console.log(response.data)
-            Alert.alert(
-                "Bilgi",
-                "Kullanıcının detayları başarıyla silindi.",
-                [
-                    { text: "Ok", onPress: navigateToHomePage }
-                ],
-                { cancelable: false }
-            );
-        } catch (error) {
-            console.log(error)
-            alert('Kullanıcı detayları silinirken bir hata meydana geldi.')
-        }
-    }
-
-    const handleCompanyDeleteButton = () => {
-        Alert.alert(
-            "Kullanıcı Detayları Silme",
-            "Kullanıcının detaylarını silmek istediğinizden emin misiniz?",
-            [
-                {
-                    text: "İptal",
-                    style: "cancel"
-                },
-                { text: "Evet", onPress: handleCompanyDelete }
-            ],
-            { cancelable: false }
-        );
-    }
-    //COMPANY DETAİLS DELETE END
-
-    //USER DETAİLS DELETE START
-    const handleUserDetailsDelete = async () => {
-        try {
-            const response = await deleteUserDetails(userDetailsId)
-            console.log(response.data)
-            Alert.alert(
-                "Bilgi",
-                "Kullanıcının detayları başarıyla silindi.",
-                [
-                    { text: "Ok", onPress: navigateToHomePage }
-                ],
-                { cancelable: false }
-            );
-        } catch (error) {
-            console.log(error)
-            alert('Kullanıcı detayları silinirken bir hata meydana geldi.')
-        }
-    }
-
-    const handleUserDetailsDeleteButton = () => {
-        Alert.alert(
-            "Kullanıcı Detayları Silme",
-            "Kullanıcının detaylarını silmek istediğinizden emin misiniz?",
-            [
-                {
-                    text: "İptal",
-                    style: "cancel"
-                },
-                { text: "Evet", onPress: handleUserDetailsDelete }
-            ],
-            { cancelable: false }
-        );
-    }
-    //USER DETAİLS DELETE END
-
     const defaultUserImage = require('../../../assets/default-user.jpg');
-    const defaultCompanyImage = require('../../../assets/default-company.png');
-
 
     return (
         <View style={styles.container}>
@@ -177,20 +44,13 @@ export function User({ route }) {
             <View style={styles.profileContainer}>
                 <Image
                     source={image ? { uri: image } :
-                        role === "COMPANY" ? defaultCompanyImage :
-                            defaultUserImage}
+                        defaultUserImage
+                    }
                     style={styles.avatar}
                 />
                 <Text style={styles.name}>{name} {surname}</Text>
                 <Text style={styles.email}>{email}</Text>
 
-                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                        <TouchableOpacity style={styles.deleteButton} onPress={handleDeleteButton}>
-                            <Text style={styles.deleteButtonText}>Sil</Text>
-                        </TouchableOpacity>
-                    </View>
-                </View>
                 {
                     userDetails &&
                     <View style={{ flexDirection: 'column', alignItems: 'left' }}>
@@ -263,22 +123,6 @@ export function User({ route }) {
                         }}>
                             Şirket Hakkında: {companyDetails.description}
                         </Text>
-                    </View>
-                }
-                {
-                    userDetails &&
-                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                        <TouchableOpacity style={styles.deleteButton} onPress={handleUserDetailsDeleteButton}>
-                            <Text style={styles.deleteButtonText}>Bilgileri Sil</Text>
-                        </TouchableOpacity>
-                    </View>
-                }
-                {
-                    companyDetails &&
-                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                        <TouchableOpacity style={styles.deleteButton} onPress={handleCompanyDeleteButton}>
-                            <Text style={styles.deleteButtonText}>Bilgileri Sil</Text>
-                        </TouchableOpacity>
                     </View>
                 }
             </View>

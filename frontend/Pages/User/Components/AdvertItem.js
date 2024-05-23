@@ -1,27 +1,46 @@
 import { useNavigation } from "@react-navigation/native";
 import { useEffect, useState } from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native"
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native"
 
 export function AdvertItems({ item }) {
     const [category, setCategory] = useState()
+    const [image, setImage] = useState()
+    const [companyName, setCompanyName] = useState()
     const navigation = useNavigation()
+
     useEffect(() => {
         if (item.category) {
             setCategory(item.category.name)
             console.log(item)
         }
-    }, [item])
+        if (item.user.company) {
+            setCompanyName(item.user.company.name)
+        }
+    }, [item, companyName])
 
 
     const goToAdvert = (item) => {
-        navigation.navigate("Advert", { item })
+        navigation.navigate("AdvertForUser", { item })
     }
+
+    const goToUserProfile = (item) => {
+        navigation.navigate("UserForUser", { item })
+    }
+
+    const defaultImage = require('../../../assets/default-company.png');
 
     return (
         <View style={styles.card}>
+            <TouchableOpacity onPress={() => goToUserProfile(item)} style={{ flexDirection: "row", alignItems: "center", marginBottom: 20 }}>
+                <Image
+                    source={image ? { uri: image } : defaultImage}
+                    style={styles.avatar}
+                />
+                <Text style={styles.tittle}>{companyName}</Text>
+            </TouchableOpacity>
             <TouchableOpacity onPress={() => goToAdvert(item)}>
-                <Text style={styles.tittle}>{category}</Text>
-                <Text style={styles.subTittle}>{item.tittle}</Text>
+                <Text style={styles.category}>{category}</Text>
+                <Text style={styles.info}>{item.tittle}</Text>
                 <Text style={styles.info}>Pozisyon: {item.position}</Text>
                 <Text style={styles.info}>Bölüm: {item.department}</Text>
             </TouchableOpacity>
@@ -36,6 +55,12 @@ const styles = StyleSheet.create({
         padding: 16,
         backgroundColor: '#f5f5f5'
     },
+    avatar: {
+        width: 50,
+        height: 50,
+        borderRadius: 25,
+    }
+    ,
     card: {
         width: '100%',
         backgroundColor: 'white',
@@ -51,25 +76,15 @@ const styles = StyleSheet.create({
     tittle: {
         fontSize: 20,
         fontWeight: 'bold',
-        marginBottom: 8,
-    },
-    subTittle: {
-        fontSize: 20,
-        marginBottom: 8,
-        color:"gray"
+        marginLeft: 10
     },
     info: {
         fontSize: 16,
         marginBottom: 4,
     },
-    description: {
-        fontSize: 16,
-        marginTop: 8,
-        color: '#555',
-    },
     category: {
         fontSize: 16,
         marginTop: 8,
-        color: 'blue',
+        fontWeight: "bold"
     },
 });

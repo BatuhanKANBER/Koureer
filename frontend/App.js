@@ -25,7 +25,11 @@ import { CategoryEdit } from './Pages/Admin/Category/CategoryEdit';
 import { CreateAdvert } from './Pages/Company/Advertisement/CreateAdvert/Index';
 import { Advert } from './Pages/Company/Advertisement/Advert';
 import { AdvertEdit } from './Pages/Company/Advertisement/AdvertEdit';
-import OurAdvertisements from './Pages/Company/Advertisement/Index';
+import { OurAdvertisements } from './Pages/Company/Advertisement/Index';
+import { AdvertForUser } from './Pages/User/Advert';
+import { UserForUser } from './Pages/User/User/User';
+import { UsersForAdverts } from './Pages/Company/Applications/Index';
+import { UserForCompany } from './Pages/Company/User/User';
 
 export default function App() {
   const Stack = createNativeStackNavigator()
@@ -41,6 +45,8 @@ export default function App() {
         <Stack.Screen name="CreateUserDetails" component={CreateUserDetails} />
         <Stack.Screen name='EditUserDetails' component={EditUserDetails} />
         <Stack.Screen name='EditProfile' component={EditProfile} />
+        <Stack.Screen name='AdvertForUser' component={AdvertForUser} options={({ route }) => ({ title: route.params.name })} />
+        <Stack.Screen name='UserForUser' component={UserForUser} options={({ route }) => ({ title: route.params.name })} />
         <Stack.Screen name="CompanyHome" component={CompanyHome} />
         <Stack.Screen name="OurAdvertisements" component={OurAdvertisements} />
         <Stack.Screen name="CompanyProfile" component={CompanyProfile} />
@@ -50,6 +56,8 @@ export default function App() {
         <Stack.Screen name='CreateAdvert' component={CreateAdvert} />
         <Stack.Screen name='Advert' component={Advert} options={({ route }) => ({ title: route.params.name })} />
         <Stack.Screen name='AdvertEdit' component={AdvertEdit} options={({ route }) => ({ title: route.params.name })} />
+        <Stack.Screen name='UsersForAdverts' component={UsersForAdverts} options={({ route }) => ({ title: route.params.name })} />
+        <Stack.Screen name='UserForCompany' component={UserForCompany} options={({ route }) => ({ title: route.params.name })} />
         <Stack.Screen name='AdminHome' component={AdminHome} />
         <Stack.Screen name='AdminProfile' component={AdminProfile} />
         <Stack.Screen name='Users' component={Users} />

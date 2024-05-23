@@ -15,7 +15,7 @@ const NavigationBar = () => {
                 <Text style={styles.link}>Ana Sayfa</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => handleGoToScreen('JobApplications')}>
-                <Text style={styles.link}>İlanlar</Text>
+                <Text style={styles.link}>Başvurularım</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => handleGoToScreen('UserProfile')}>
                 <Text style={styles.link}>Profilim</Text>
