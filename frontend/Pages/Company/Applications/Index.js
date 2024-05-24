@@ -24,7 +24,6 @@ export function UsersForAdverts({ route }) {
             const response = await loadUsersForAdverts(id);
             setValues(response.data)
             setCount(response.data.id)
-            console.log(response.data)
         } catch (error) {
             console.log(error)
         }
@@ -39,20 +38,17 @@ export function UsersForAdverts({ route }) {
         <View style={styles.container}>
             <StatusBar />
             <View style={styles.elementsContainer}>
-                {
-                    count > 0 ? <FlatList
-                        data={values}
-                        renderItem={({ item }) => <UsersItems item={item} />}
-                        keyExtractor={(item) => item.id.toString()}
-                        contentContainerStyle={styles.listContent}
-                        ListHeaderComponent={<View style={styles.headerContainer}>
-                            <Text style={styles.header}>Avatar</Text>
-                            <Text style={styles.header}>Ad Soyad</Text>
-                            <Text style={styles.header}>Email</Text>
-                        </View>}
-                    /> :
-                        <Text>Herhangi bir kullanıcı bulunamadı.</Text>
-                }
+                <FlatList
+                    data={values}
+                    renderItem={({ item }) => <UsersItems item={item} />}
+                    keyExtractor={(item) => item.id.toString()}
+                    contentContainerStyle={styles.listContent}
+                    ListHeaderComponent={<View style={styles.headerContainer}>
+                        <Text style={styles.header}>Avatar</Text>
+                        <Text style={styles.header}>Ad Soyad</Text>
+                        <Text style={styles.header}>Email</Text>
+                    </View>}
+                />
             </View>
             <NavigationBar />
         </View>
